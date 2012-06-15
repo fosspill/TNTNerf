@@ -5,15 +5,14 @@
 //Working. Nothing left to do, tbh ^^ - I WAS WRONG!
 
 
-import java.util.logging.Logger; //imports let you use features outside of your libraries
+import java.util.logging.Logger; 
+public class TNTNerf extends Plugin { 
 
-public class TNTNerf extends Plugin { //The opening for the plugin. all code goes inside here
-
-	private Logger log = Logger.getLogger("Minecraft"); //this allows you to send messages to the server console
-	public static TNTNerf.TNTNerfListener listener; //this is a simple way of initializing your listener. all canary api code goes inside the listener
-	public static String name = "TNTNerf"; //name of your plugin
-	public static String version = "1.5"; //version number
-	public static String author = "oleerik"; //your name
+	private Logger log = Logger.getLogger("Minecraft"); 
+	public static TNTNerf.TNTNerfListener listener; 
+	public static String name = "TNTNerf";
+	public static String version = "1.5"; 
+	public static String author = "oleerik";
 	//Props file!
 	public static PropertiesFile props = new PropertiesFile("plugins/config/TNTNerf.properties");
 	public static PropertiesFile firstplacewarning = new PropertiesFile("plugins/config/TNTNerf.firstplacewarning.db");
@@ -22,18 +21,18 @@ public class TNTNerf extends Plugin { //The opening for the plugin. all code goe
 
 	public TNTNerf(){ listener = new TNTNerf.TNTNerfListener(); }//initializing the listener
 
-	public void disable(){ //these actions are called when the plugin is disabled
-		log.info(name + " disabled."); //this will print in the console 'TNTNerf disabled'
+	public void disable(){ 
+		log.info(name + " disabled."); 
 	}
 
-	public void enable(){ //these actions are called when the plugin is enabled
+	public void enable(){ 
 		log.info(name + " enabled.");
 	}
 
-	public void initialize(){ //these actions are called after the plugin is enabled
-		etc.getLoader().addListener(PluginLoader.Hook.EXPLODE, listener, this, PluginListener.Priority.MEDIUM); //Calls the EXPLOSION hook
-		etc.getLoader().addListener(PluginLoader.Hook.BLOCK_PLACE, listener, this, PluginListener.Priority.MEDIUM); //Calls the Block_place hook
-		etc.getLoader().addListener(PluginLoader.Hook.PLAYER_CONNECT, listener, this, PluginListener.Priority.MEDIUM); //Calls the Block_place hook
+	public void initialize(){ 
+		etc.getLoader().addListener(PluginLoader.Hook.EXPLODE, listener, this, PluginListener.Priority.MEDIUM); 
+		etc.getLoader().addListener(PluginLoader.Hook.BLOCK_PLACE, listener, this, PluginListener.Priority.MEDIUM); 
+		etc.getLoader().addListener(PluginLoader.Hook.PLAYER_CONNECT, listener, this, PluginListener.Priority.MEDIUM);
 		log.info(name + " v" + version + " by " + author + " initialized.");
 		
 		if (!props.containsKey("heightlimit")){
@@ -43,7 +42,7 @@ public class TNTNerf extends Plugin { //The opening for the plugin. all code goe
 	}
 	
 
-	private class TNTNerfListener extends PluginListener { //this is the listener, where it all happens. Put your canary methods code inside this
+	private class TNTNerfListener extends PluginListener { 
 
 		public boolean onExplode(Block block, OEntity entity, @SuppressWarnings("rawtypes") java.util.HashSet blocksaffected){
 			if (block.getStatus() == 1 && block.getY() > maxAltitude){ //if the block was exploded by TNT AND is placed above maxAltitude.
